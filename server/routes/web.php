@@ -17,6 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['prefix'=>'contacts','middleware'=>'auth'], function () {
+    Route::get('index', 'ContactFormController@index')->name('contacts.index');
+    Route::get('create', 'ContactFormController@create')->name('contacts.create');
+    Route::post('store', 'ContactFormController@store')->name('contacts.store');
+    Route::get('show/{id}', 'ContactFormController@show')->name('contacts.show');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
