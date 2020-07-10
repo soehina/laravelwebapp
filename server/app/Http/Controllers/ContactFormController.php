@@ -19,11 +19,11 @@ class ContactFormController extends Controller
     {
         // クエリビルダ
         $contacts = DB::table('contact_forms')
-        ->select('id','name')
-        ->get();
+            ->select('id', 'name')
+            ->get();
 
         // indexに$contactsを表示する
-        return view('contacts.index',compact('contacts'));
+        return view('contacts.index', compact('contacts'));
     }
 
     /**
@@ -39,11 +39,13 @@ class ContactFormController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+//        上記でModelを呼び出し
+//        インスタンス化
         $contact = new ContactForm;
 
         $contact->name = $request->input('name');
@@ -60,26 +62,26 @@ class ContactFormController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $contact = ContactForm::find($id);
 
-        if($contact->gender === 0){
+        if ($contact->gender === 0) {
             $gender = '男性';
-        }elseif ($contact->gender === 1) {
+        } elseif ($contact->gender === 1) {
             $gender = '女性';
         }
 
-        return view('contacts.show',compact('contact','gender'));
+        return view('contacts.show', compact('contact', 'gender'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -90,8 +92,8 @@ class ContactFormController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -102,7 +104,7 @@ class ContactFormController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
