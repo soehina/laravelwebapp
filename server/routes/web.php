@@ -13,16 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get(
+    '/',
+    function () {
+        return view('welcome');
+    }
+);
 
-Route::group(['prefix'=>'contacts','middleware'=>'auth'], function () {
-    Route::get('index', 'ContactFormController@index')->name('contacts.index');
-    Route::get('create', 'ContactFormController@create')->name('contacts.create');
-    Route::post('store', 'ContactFormController@store')->name('contacts.store');
-    Route::get('show/{id}', 'ContactFormController@show')->name('contacts.show');
-});
+Route::group(
+    ['prefix' => 'contacts', 'middleware' => 'auth'],
+    function () {
+        Route::get('index', 'ContactFormController@index')->name('contacts.index');
+        Route::get('create', 'ContactFormController@create')->name('contacts.create');
+        Route::post('store', 'ContactFormController@store')->name('contacts.store');
+        Route::get('show/{id}', 'ContactFormController@show')->name('contacts.show');
+        Route::get('edit/{id}', 'ContactFormController@edit')->name('contacts.edit');
+        Route::post('update/{id}', 'ContactFormController@update')->name('contacts.update');
+    }
+);
 
 Auth::routes();
 

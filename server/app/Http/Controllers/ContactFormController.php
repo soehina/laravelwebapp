@@ -23,7 +23,7 @@ class ContactFormController extends Controller
             ->get();
 
         // indexに$contactsを表示する
-        return view('contacts.index', compact('contacts'));
+        return view('contacts/index', compact('contacts'));
     }
 
     /**
@@ -33,7 +33,7 @@ class ContactFormController extends Controller
      */
     public function create()
     {
-        return view('contacts.create');
+        return view('contacts/create');
     }
 
     /**
@@ -75,7 +75,7 @@ class ContactFormController extends Controller
             $gender = '女性';
         }
 
-        return view('contacts.show', compact('contact', 'gender'));
+        return view('contacts/show', compact('contact', 'gender'));
     }
 
     /**
@@ -86,7 +86,8 @@ class ContactFormController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contact = ContactForm::find($id);
+        return view('contacts/edit', compact('contact'));
     }
 
     /**
@@ -98,7 +99,17 @@ class ContactFormController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $contact = ContactForm::find($id);
+
+        $contact->name = $request->input('name');
+        $contact->email = $request->input('email');
+        $contact->title = $request->input('title');
+        $contact->gender = $request->input('gender');
+        $contact->contact = $request->input('contact');
+
+        $contact->save();
+
+        return redirect('contacts/show/' . $id);
     }
 
     /**

@@ -18,11 +18,8 @@
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action=>
-                            @csrf
-
-                            <input class="btn btn-primary" type="submit" value="Change">
-                        </form>
+                        <a href="{{route('contacts.edit',[$contact->id])}}" class="btn btn-primary"
+                           type="submit">編集する</a>
                     </div>
                 </div>
             </div>
