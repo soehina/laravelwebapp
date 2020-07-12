@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreContactForm;
 use Illuminate\Http\Request;
 
 use App\Models\ContactForm;
 
 use Illuminate\Support\Facades\DB;
+
+use App\Service\CheckFormData;
 
 class ContactFormController extends Controller
 {
@@ -42,7 +45,7 @@ class ContactFormController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreContactForm $request)
     {
 //        上記でModelを呼び出し
 //        インスタンス化
@@ -68,12 +71,7 @@ class ContactFormController extends Controller
     public function show($id)
     {
         $contact = ContactForm::find($id);
-
-        if ($contact->gender === 0) {
-            $gender = '男性';
-        } elseif ($contact->gender === 1) {
-            $gender = '女性';
-        }
+        $gender = CheckFormData::checkGender($contact);
 
         return view('contacts/show', compact('contact', 'gender'));
     }
@@ -120,6 +118,9 @@ class ContactFormController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contact = ContactForm::find($id);
+        $contact->delete();
+
+        return redirect('contacts/index');
     }
 }

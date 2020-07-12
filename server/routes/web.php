@@ -29,6 +29,7 @@ Route::group(
         Route::get('show/{id}', 'ContactFormController@show')->name('contacts.show');
         Route::get('edit/{id}', 'ContactFormController@edit')->name('contacts.edit');
         Route::post('update/{id}', 'ContactFormController@update')->name('contacts.update');
+        Route::post('destroy/{id}', 'ContactFormController@destroy')->name('contacts.destroy');
     }
 );
 
